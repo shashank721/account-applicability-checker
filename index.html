@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Applicability Checker</title>
+</head>
+<body>
+    <h2>Check Account Applicability</h2>
+    <input type="text" id="accountNo" placeholder="Enter account number">
+    <button onclick="checkApplicability()">Check</button>
+
+    <p id="result"></p>
+
+    <script>
+        async function checkApplicability() {
+            const accountNo = document.getElementById('accountNo').value;
+            const response = await fetch(`http://127.0.0.1:5000/check_applicability?account_no=${accountNo}`);
+            const result = await response.json();
+
+            if (response.ok) {
+                document.getElementById('result').textContent = `Applicability: ${result.applicable}`;
+            } else {
+                document.getElementById('result').textContent = "Account number not found";
+            }
+        }
+    </script>
+</body>
+</html>
